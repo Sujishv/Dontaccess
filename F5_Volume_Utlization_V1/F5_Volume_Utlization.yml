@@ -1,0 +1,14 @@
+---
+- hosts: all
+  connection: local
+  gather_facts: no
+#  vars_files:
+#    - vars/var
+#  vars:
+#    ansible_python_interpreter: "{{ansible_playbook_python}}"
+
+  roles:
+    - { role: F5_Device_Health_Check, }
+    - { role: F5_Device_Volume_Utilization, }
+
+

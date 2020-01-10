@@ -1,0 +1,25 @@
+---
+# tasks file for f5_Device_Info_collect
+
+    - name: Find out playbooks path
+      shell: pwd
+      register: playbook_path_output
+    - name: "Generic Playbook"
+      Net_Connect:
+        Username: "{{ username }}"
+        Password: "{{ password }}"
+        IP: "{{ ansible_host }}"
+        JumpServer: "{{ ansible_Jumpserver | default ('') }}"
+        Interface: "{{ interface | default('Null') }}"
+        DeviceType: "{{ DeviceType | default('f5_ltm') }}"
+        path: "{{ playbook_path_output.stdout }}"
+        Type: "{{ Type | default('Health_Diag') }}"
+      register: output
+      #ignore_errors: True
+      #no_log: False
+    - debug:
+         msg: "{{ output.meta }}"
+      when: output is not changed
+    - fail:
+         msg: "{{ output.meta }}"
+      when: output is changed
