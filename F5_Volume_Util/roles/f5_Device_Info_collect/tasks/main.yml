@@ -1,0 +1,50 @@
+---
+# tasks file for f5_Device_Info_collect
+
+- name: Collect bigip device details
+  bigip_device_facts:
+    gather_subset:
+      - system-info
+      - devices
+      - ltm-pools
+      - gtm-pools
+      - virtual-servers
+    provider: "{{f5_provider}}"
+  check_mode: no
+  register: device_facts
+
+#- name: Print facts
+#  debug:
+#    msg: "{{device_facts}}"
+
+# Failover State
+- name: Device Info
+  debug:
+    msg:
+    - "Hostname = {{device_facts.devices[0].hostname}}"
+    - "Failover State = {{device_facts.devices[0].failover_state}}"
+    - "Management Address = {{device_facts.devices[0].management_address}}"
+    - "Marketing Name = {{device_facts.devices[0].marketing_name}}"
+    - "Software Version = {{device_facts.devices[0].software_version}}"
+    - "Time = {{device_facts.system_info.time}}"
+    - "Uptime = {{device_facts.system_info.uptime}}"
+
+# LB Pool Down
+- name: LTM Pool status
+  debug:
+    msg:
+    - "Name = {{item.name}}, Availability Status = {{item.availability_status}}"
+  with_items: "{{device_facts.ltm_pools}}"
+  when:
+    - device_facts.ltm_pools
+    - device_facts.ltm_pools|length > 0
+
+#Virtual server status
+- name: Virtual server status
+  debug:
+    msg:
+    - "Name = {{item.name}}, Availability Status = {{item.availability_status}}"
+  with_items: "{{device_facts.virtual_servers}}"
+  when:
+    - device_facts.virtual_servers
+    - device_facts.virtual_servers|length > 0

@@ -1,0 +1,11 @@
+[f5:vars]
+ansible_network_os = bigip
+ansible_user = admin
+ansible_password = admin
+
+[f5]
+198.18.128.130
+[not_working]
+
+[working]
+

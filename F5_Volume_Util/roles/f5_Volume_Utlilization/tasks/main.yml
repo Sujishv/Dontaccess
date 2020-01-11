@@ -1,0 +1,16 @@
+---
+# tasks file for f5_Volume_Utlilization
+
+- name: Collect Disk details
+  bigip_command:
+    commands:
+     - bash -c df -h
+    provider: "{{f5_provider}}"
+  delegate_to: localhost
+  check_mode: no
+  register: disk_usage
+
+- name: Print disk_usage
+  debug:
+    msg: "{{disk_usage.stdout_lines}}"
+
