@@ -1,6 +1,6 @@
 ---
 - name: Usecases for F5 bigip
-  hosts: all
+  hosts: f5
   connection: local
   gather_facts: False
 
