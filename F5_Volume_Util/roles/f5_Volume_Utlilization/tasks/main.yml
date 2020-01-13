@@ -25,6 +25,6 @@
       state: 6
     register: incidentupdate
     
-- name: Print incident update
-  debug:
-    var: incidentupdate.record.state
+# - name: Print incident update
+#   debug:
+#     var: incidentupdate.record.state
