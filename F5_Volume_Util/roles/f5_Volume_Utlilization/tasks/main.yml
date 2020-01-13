@@ -13,4 +13,12 @@
 - name: Print disk_usage
   debug:
     msg: "{{disk_usage.stdout_lines}}"
-
+- name: Update an incident
+  snow_record:
+    username: admin
+    password: 4bbyHFb66LuymVih@GyF
+    instance: dev73411
+    state: present
+    number: "{{incident_num}}"
+    data:
+      work_notes : "Been working all day on this thing."
