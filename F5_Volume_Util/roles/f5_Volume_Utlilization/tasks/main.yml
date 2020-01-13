@@ -27,4 +27,4 @@
     
 - name: Print incident update
   debug:
-    msg: "{{incidentupdate}}"
+    var: incidentupdate.record.state
