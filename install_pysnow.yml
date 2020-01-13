@@ -1,7 +1,5 @@
 - hosts: local
   connection: local
 - name: Find out playbooks path
-  shell:
-    - pwd
-    - pip install pysnow
+  shell: pip install pysnow   
   register: playbook_path_output
