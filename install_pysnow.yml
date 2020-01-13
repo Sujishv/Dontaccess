@@ -1,5 +1,9 @@
-- hosts: localhost
-
-- name: Find out playbooks path
-  shell: pip install pysnow   
-  register: playbook_path_output
+- name: Network Getting Started First Playbook
+  hosts: localhost
+  tasks:
+    - name: Find out playbooks path
+      shell: pip install pysnow
+      register: playbook_path_output
+    - name: Print disk_usage
+      debug:
+        msg: "{{playbook_path_output}}"
