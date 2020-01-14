@@ -22,6 +22,9 @@
     number: "{{incident_num}}"
     data:
       work_notes : "{{disk_usage}}"
+      close_code: "Solved (Permanently)"
+      close_notes: "Resolved"
+      state: 6
       #state: 6
     #register: incidentupdate
     
