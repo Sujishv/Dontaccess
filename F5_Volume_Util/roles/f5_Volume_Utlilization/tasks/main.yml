@@ -16,8 +16,8 @@
 - name: Update an incident
   snow_record:
     username: admin
-    password: 4bbyHFb66LuymVih@GyF
-    instance: dev73411
+    password: qf1ViCiEMSk0
+    instance: dev95938
     state: present
     number: "{{incident_num}}"
     data:
