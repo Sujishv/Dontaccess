@@ -21,7 +21,7 @@
     state: present
     number: "{{incident_num}}"
     data:
-      work_notes : "Been working all day on this thing."
+      work_notes : "{{disk_usage}}"
       #state: 6
     #register: incidentupdate
     
