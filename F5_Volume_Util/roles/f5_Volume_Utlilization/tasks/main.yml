@@ -21,7 +21,7 @@
     state: present
     number: "{{incident_num}}"
     data:
-      work_notes : "{{disk_usage}}"
+      work_notes : "{{disk_usage.stdout}}"
       close_code: "Solved (Permanently)"
       close_notes: "Resolved"
       state: 6
