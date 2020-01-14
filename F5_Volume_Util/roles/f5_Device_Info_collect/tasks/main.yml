@@ -29,15 +29,15 @@
     - "Time = {{device_facts.system_info.time}}"
     - "Uptime = {{device_facts.system_info.uptime}}"
  
-- name: Update an incident
-  snow_record:
-    username: admin
-    password: 4bbyHFb66LuymVih@GyF
-    instance: dev73411
-    state: present
-    number: "{{incident_num}}"
-    data:
-      work_notes : "Hostname = {{device_facts.devices[0].hostname}}" "Failover State = {{device_facts.devices[0].failover_state}}" "Management Address = {{device_facts.devices[0].management_address}}" "Marketing Name = {{device_facts.devices[0].marketing_name}}" "Software Version = {{device_facts.devices[0].software_version}}" "Time = {{device_facts.system_info.time}}" "Uptime = {{device_facts.system_info.uptime}}""{{disk_usage.stdout}}"
+# - name: Update an incident
+#   snow_record:
+#     username: admin
+#     password: 4bbyHFb66LuymVih@GyF
+#     instance: dev73411
+#     state: present
+#     number: "{{incident_num}}"
+#     data:
+#       work_notes : "Hostname = {{device_facts.devices[0].hostname}}" "Failover State = {{device_facts.devices[0].failover_state}}" "Management Address = {{device_facts.devices[0].management_address}}" "Marketing Name = {{device_facts.devices[0].marketing_name}}" "Software Version = {{device_facts.devices[0].software_version}}" "Time = {{device_facts.system_info.time}}" "Uptime = {{device_facts.system_info.uptime}}""{{disk_usage.stdout}}"
 
 # LB Pool Down
 - name: LTM Pool status
