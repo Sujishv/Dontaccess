@@ -26,7 +26,7 @@
       close_code: "Solved (Permanently)"
       close_notes: "Resolved by Ansible Tower Automation"
       state: 6
-    register: incidentupdate
+    #register: incidentupdate
   when: Volume_Utilization_Output['decision'] == 1
 
 - name: Place the incident on queue
