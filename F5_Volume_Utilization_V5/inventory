@@ -1,0 +1,11 @@
+[f5:vars]
+ansible_network_os = bigip
+ansible_user = "{{ username }}"
+ansible_password = "{{ password }}"
+
+[f5]
+"{{ ansible_host }}"
+[not_working]
+
+[working]
+

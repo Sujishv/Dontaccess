@@ -1,0 +1,47 @@
+---
+# tasks file for f5_Volume_Utlilization
+
+- name: Find out playbooks path
+  shell: pwd
+  register: playbook_path_output
+
+- name: Collect Disk details
+  F5_Volume_Utilization:
+    IP: "{{ansible_host}}"
+    user: "{{ansible_user}}"
+    password: "{{ansible_password}}"
+    JumpServer: "{{jumpserver | default('')}}"
+    j_username: "{{j_username | default(ansible_user)}}"
+    j_password: "{{j_password | default(ansible_password)}}"
+    path: "{{ playbook_path_output.stdout }}"
+  register: Volume_Utilization_Output
+#- name: Print disk_usage
+#  debug:
+#    msg: "{{ Volume_Utilization_Output.msg }} \n\n {{ Final_Device_Info.msg }}"
+#  register: final_output
+
+#- debug:
+#    msg: "username: {{snow_username}}
+#           password: {{snow_password}}
+#           instance: {{snow_instance}}
+#           state: present
+#           number: {{incident_num}}"
+
+#- name: Update an incident
+#  snow_record:
+#    username: admin
+#    password: qf1ViCiEMSk0
+#    instance: dev95938
+#    state: present
+#    number: "{{incident_num}}"
+#    data:
+#      work_notes : "{{final_output.msg}}"
+#      close_code: "Solved (Permanently)"
+#      close_notes: "Resolved by Ansible Tower Automation"
+#      state: 6
+#      state: 6
+#    register: incidentupdate
+#
+# - name: Print incident update
+#   debug:
+#     var: incidentupdate.record.state

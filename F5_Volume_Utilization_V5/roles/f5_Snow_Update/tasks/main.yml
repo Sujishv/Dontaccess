@@ -1,0 +1,46 @@
+---
+# tasks file for f5_Snow_Update
+- name: Print disk_usage
+  debug:
+    msg: "Volume Utilization of F5 Device Status: \n\n {{ Volume_Utilization_Output.msg }} \n\n Health Check Details: \n\n {{ Final_Device_Info.msg }}"
+  register: final_output
+#
+#- debug:
+#    msg: "username: {{snow_username}}
+#           password: {{snow_password}}
+#           instance: {{snow_instance}}
+#           state: present
+#           number: {{incident_num}}
+#           value: {{Volume_Utilization_Output}}"
+
+- name: Close an incident
+  snow_record:
+    username: "{{snow_username}}"
+    password: "{{snow_password}}"
+    instance: "{{snow_instance}}"
+    state: present
+    number: "{{incident_num}}"
+    data:
+      work_notes : "{{final_output.msg}}"
+      close_code: "Solved (Permanently)"
+      close_notes: "Resolved by Ansible Tower Automation"
+      state: 6
+    register: incidentupdate
+  when: Volume_Utilization_Output['decision'] == 1
+
+- name: Place the incident on queue
+  snow_record:
+    username: "{{snow_username}}"
+    password: "{{snow_password}}"
+    instance: "{{snow_instance}}"
+    state: present
+    number: "{{incident_num}}"
+    data:
+      work_notes : "{{final_output.msg}}"
+      state: 500
+    register: incidentupdate
+  when: Volume_Utilization_Output['decision'] == 0
+
+# - name: Print incident update
+#   debug:
+#     var: incidentupdate.record.state

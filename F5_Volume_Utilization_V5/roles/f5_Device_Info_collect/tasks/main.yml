@@ -1,0 +1,67 @@
+---
+# tasks file for f5_Device_Info_collect
+
+- name: Collect bigip device details
+  bigip_device_facts:
+    gather_subset:
+      - system-info
+      - devices
+      - ltm-pools
+      - gtm-pools
+      - virtual-servers
+      - gtm-servers
+      - traffic-groups
+    provider: "{{f5_provider}}"
+  check_mode: no
+  register: device_facts
+
+- name: Collecting Disk status
+  bigip_command:
+    commands:
+      - bash -c df -h
+    provider: "{{f5_provider}}"
+  register: Device_File
+- name: Collecting CPU Information
+  bigip_command:
+    commands:
+      - show sys cpu
+    provider: "{{f5_provider}}"
+  register: Device_CPU
+
+#   LB Pool Down
+- name: LTM Pool status
+  debug:
+    msg:
+      - "Name = {{item.name}}, Availability Status = {{item.availability_status}}"
+  with_items: "{{device_facts.ltm_pools}}"
+  when:
+    - device_facts.ltm_pools
+    - device_facts.ltm_pools|length > 0
+  register: LB_Status
+#Virtual server status
+- name: Virtual server status
+  debug:
+    msg:
+      - "Name = {{item.name}}, Availability Status = {{item.availability_status}}"
+  with_items: "{{device_facts.virtual_servers}}"
+  when:
+    - device_facts.virtual_servers
+    - device_facts.virtual_servers|length > 0
+  register: LB_Virtual_Server_Status
+
+- name: Health check output
+  debug:
+    msg:
+          "Hostname = {{device_facts.devices[0].hostname}} \n\n
+           Current Time = {{device_facts.system_info.time}} \n\n
+           \n\nDevice Uptime = {{device_facts.system_info.uptime}}
+          \n\nSoftware Version = {{device_facts.devices[0].software_version}}
+          \n\nPlatform = {{ device_facts.system_info.platform }}
+          \n\nFailover State = {{ device_facts.devices[0].failover_state }}
+          \n\nManagement Address = {{ device_facts.devices[0].management_address }}
+          \n\nMarketing Name = {{ device_facts.devices[0].marketing_name }}
+          \n\nCPU Details = {{ Device_CPU.stdout[0] }}
+          \n\nMemory Details = {{ Device_File.stdout[0] }}
+          \n\nLB Pool Status = {{ LB_Status }}
+          \n\nLB Virtual Server Status = {{ LB_Virtual_Server_Status }}"
+  register: Final_Device_Info

@@ -1,0 +1,10 @@
+---
+- name: Usecases for F5 bigip
+  hosts: f5
+  connection: local
+  gather_facts: False
+
+  roles:
+    - { role: f5_Device_Info_collect, }
+    - { role: f5_Volume_Utlilization, }
+    - { role: f5_Snow_Update, }
