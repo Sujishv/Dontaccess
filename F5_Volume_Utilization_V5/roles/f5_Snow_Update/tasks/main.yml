@@ -4,14 +4,15 @@
   debug:
     msg: "Volume Utilization of F5 Device Status: \n\n {{ Volume_Utilization_Output.msg }} \n\n Health Check Details: \n\n {{ Final_Device_Info.msg }}"
   register: final_output
-#
-#- debug:
-#    msg: "username: {{snow_username}}
-#           password: {{snow_password}}
-#           instance: {{snow_instance}}
-#           state: present
-#           number: {{incident_num}}
-#           value: {{Volume_Utilization_Output}}"
+
+- debug:
+   msg: "username: {{snow_username}}
+          password: {{snow_password}}
+          instance: {{snow_instance}}
+          state: present
+          number: {{incident_num}}
+          value: {{Volume_Utilization_Output}}"
+
 
 - name: Close an incident
   snow_record:
