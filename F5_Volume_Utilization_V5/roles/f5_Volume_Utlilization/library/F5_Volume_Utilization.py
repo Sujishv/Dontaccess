@@ -170,7 +170,7 @@ def Connectivity(JumpServer, J_USERNAME, J_PASSWORD, ip, D_Username, D_Password,
             response_content = str('Issue in Device Connectivity')
             decision = 0
     except Exception as e:
-        response_content = str('Issue in Device Connectivity\n Issue is: ')+str(e)
+        response_content = str('Issue in Device Connectivity\n Issue is: ')+str(e)+str(PROJECT_PATH)
         decision = 0
     return response_content, int(decision)
 
