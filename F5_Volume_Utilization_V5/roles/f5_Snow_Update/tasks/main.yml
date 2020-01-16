@@ -28,7 +28,7 @@
       close_notes: "Resolved by Ansible Tower Automation"
       state: 6
     #register: incidentupdate
-  when: Volume_Utilization_Output['decision'] == 1
+  when: Volume_Utilization_Output['decision'] == 0
 
 - name: Place the incident on queue
   snow_record:
@@ -41,7 +41,7 @@
       work_notes : "{{final_output}}"
       state: 500
     register: incidentupdate
-  when: Volume_Utilization_Output['decision'] == 0
+  when: Volume_Utilization_Output['decision'] == 1
 
 # - name: Print incident update
 #   debug:
