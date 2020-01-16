@@ -22,8 +22,8 @@
     state: present
     number: "{{incident_num}}"
     data:
-      #work_notes : "{{final_output.msg}}"
-      work_notes : "TEST UPDATE"
+      work_notes : "{{final_output.stdout}}"
+      #work_notes : "TEST UPDATE"
       close_code: "Solved (Permanently)"
       close_notes: "Resolved by Ansible Tower Automation"
       state: 6
@@ -38,7 +38,7 @@
     state: present
     number: "{{incident_num}}"
     data:
-      work_notes : "{{final_output.msg}}"
+      work_notes : "{{final_output.stdout}}"
       state: 500
     register: incidentupdate
   when: Volume_Utilization_Output['decision'] == 0
