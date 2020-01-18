@@ -1,0 +1,157 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Deploy Static Path binding for given EPG
+      block:
+        - name: Deploy Static Path binding for given EPG
+          aci_static_binding_to_epg:
+            host:  "{{ host }}"
+            username: "{{ username }}"
+            password:  "{{ password }}"
+            tenant:  "{{ tenant }}"
+            ap: "{{ ap }}"
+            epg:  "{{ epg }}"
+            encap_id:  "{{ item[1] }}"
+            deploy_immediacy: immediate
+            interface_mode:  "{{ interface_mode }}"
+            interface_type:  "{{ interface_type }}"
+            pod_id:  "{{ pod_id }}"
+            leafs:  "{{ leafs }}"
+            interface:  "{{ item[0] }}"
+            state: present
+            validate_certs: no
+            timeout: 300
+          delegate_to: localhost
+          with_nested:
+            - "{{interface}}"
+            - "{{encap_id}}"
+      rescue:
+        - name: Add Bridge Domain
+          aci_bd:
+            host: "{{ host }}"
+            username: "{{ username }}"
+            password: "{{ password }}"
+            tenant: "{{tenant}}"
+            bd: "{{bd}}"
+            description:  "Automation created - {{change_num}} "
+            vrf: "{{vrf}}"
+            state: present
+            validate_certs: no
+            timeout: 300
+          delegate_to: localhost
+
+        - name: Add a new EPG
+          aci_epg:
+            host: "{{ host }}"
+            username: "{{ username }}"
+            password: "{{ password }}"
+            tenant: "{{tenant}}"
+            ap: "{{ap}}"
+            epg: "{{epg}}"
+            description: "Automation created - {{change_num}} "
+            bd: "{{bd}}"
+            preferred_group: yes
+            state: present
+            validate_certs: no
+            timeout: 300
+          delegate_to: localhost
+
+        - name: Add a new physical domain to EPG binding
+          aci_epg_to_domain:
+            host: "{{ host }}"
+            username: "{{ username }}"
+            password: "{{ password }}"
+            tenant: "{{tenant}}"
+            ap: "{{ap}}"
+            epg: "{{epg}}"
+            domain: "{{domain}}"
+            domain_type: "{{domain_type}}"
+            state: present
+            validate_certs: no
+            timeout: 300
+          delegate_to: localhost
+
+        - name: Add a new VLAN pool
+          aci_vlan_pool:
+            host: "{{ host }}"
+            username: "{{ username }}"
+            password: "{{ password }}"
+            pool: "{{ pool }}"
+            pool_allocation_mode: "{{ pool_allocation_mode }}"
+            description:  "Automation created for {{pool}} - {{change_num}} "
+            state: present
+            validate_certs: no
+            timeout: 300
+          delegate_to: localhost
+
+        - name: Add a new VLAN encap block
+          aci_vlan_pool_encap_block:
+            host: "{{ host }}"
+            username: "{{ username }}"
+            password: "{{ password }}"
+            pool: "{{ pool }}"
+            pool_allocation_mode: "{{ pool_allocation_mode }}"
+            block_name: "block_{{ block_start }}_{{block_start}}"
+            block_start: "{{block_start}}"
+            block_end: "{{block_end}}"
+            state: present
+            validate_certs: no
+            timeout: 300
+          delegate_to: localhost
+
+        - name: Deploy Static Path binding for given EPG
+          aci_static_binding_to_epg:
+            host:  "{{ host }}"
+            username: "{{ username }}"
+            password:  "{{ password }}"
+            tenant:  "{{ tenant }}"
+            ap: "{{ ap }}"
+            epg:  "{{ epg }}"
+            encap_id:  "{{ item[1] }}"
+            deploy_immediacy: immediate
+            interface_mode:  "{{ interface_mode }}"
+            interface_type:  "{{ interface_type }}"
+            pod_id:  "{{ pod_id }}"
+            leafs:  "{{ leafs }}"
+            interface:  "{{ item[0] }}"
+            state: present
+            validate_certs: no
+            timeout: 300
+          delegate_to: localhost
+          with_nested:
+            - "{{interface}}"
+            - "{{encap_id}}"
+
+    - name: Get specific Static Path binding for given EPG
+      aci_static_binding_to_epg:
+        host:  "{{ host }}"
+        username: "{{ username }}"
+        password:  "{{ password }}"
+        tenant:  "{{ tenant }}"
+        ap: "{{ ap }}"
+        epg:  "{{ epg }}"
+        interface_type:  "{{ interface_type }}"
+        pod_id:  "{{ pod_id }}"
+        leafs:  "{{ leafs }}"
+        interface:  "{{ item }}"
+        state: query
+        validate_certs: no
+        timeout: 300
+      delegate_to: localhost
+      register: query_result
+      with_items: "{{interface}}"
+
+    - name: SNOW Update
+      snow_record:
+        username: admin
+        password: 4bbyHFb66LuymVih@GyF
+        instance: dev73411
+        state: present
+        table: change_request
+        number: change_number
+        data:
+          work_notes: "{{query_result}}"
+          state: 3
+          close_code: Sucessful
+          close_notes: "Automation Closed Change"
