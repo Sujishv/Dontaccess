@@ -1,0 +1,14 @@
+---
+# defaults file for f5_Volume_Utlilization
+f5_provider:
+  server: "{{inventory_hostname}}"
+  IP: "{{ansible_host}}"
+  user: "{{ansible_user}}"
+  password: "{{ansible_password}}"
+  Jumpserver: "{{jumpserver | default('')}}"
+  j_username: "{{j_username | default(ansible_user)}}"
+  j_password: "{{j_password | default(ansible_password)}}"
+  path: "{{ playbook_path_output.stdout }}"
+  transport: cli
+  timeout: 600
+  validate_certs: False
