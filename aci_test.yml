@@ -28,8 +28,8 @@
     - name: Get specific Static Path binding for given EPG
       aci_static_binding_to_epg:
         host:  "{{ host }}"
-        username: "{{ username }}"
-        password:  "{{ password }}"
+        username: "{{ ansible_user }}"
+        password:  "{{ ansible_password }}"
         tenant:  "{{ tenant }}"
         ap: "{{ ap }}"
         epg:  "{{ epg }}"
