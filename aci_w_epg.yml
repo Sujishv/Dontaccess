@@ -20,6 +20,7 @@
             leafs:  "{{ leafs }}"
             interface:  "{{ item[0] }}"
             state: present
+            use_ssl: no
             validate_certs: no
             timeout: 300
           delegate_to: localhost
@@ -37,6 +38,7 @@
             description:  "Automation created - {{change_num}} "
             vrf: "{{vrf}}"
             state: present
+            use_ssl: no
             validate_certs: no
             timeout: 300
           delegate_to: localhost
@@ -53,6 +55,7 @@
             bd: "{{bd}}"
             preferred_group: yes
             state: present
+            use_ssl: no
             validate_certs: no
             timeout: 300
           delegate_to: localhost
@@ -68,6 +71,7 @@
             domain: "{{domain}}"
             domain_type: "{{domain_type}}"
             state: present
+            use_ssl: no
             validate_certs: no
             timeout: 300
           delegate_to: localhost
@@ -81,6 +85,7 @@
             pool_allocation_mode: "{{ pool_allocation_mode }}"
             description:  "Automation created for {{pool}} - {{change_num}} "
             state: present
+            use_ssl: no
             validate_certs: no
             timeout: 300
           delegate_to: localhost
@@ -96,6 +101,7 @@
             block_start: "{{block_start}}"
             block_end: "{{block_end}}"
             state: present
+            use_ssl: no
             validate_certs: no
             timeout: 300
           delegate_to: localhost
@@ -116,6 +122,7 @@
             leafs:  "{{ leafs }}"
             interface:  "{{ item[0] }}"
             state: present
+            use_ssl: no
             validate_certs: no
             timeout: 300
           delegate_to: localhost
@@ -137,6 +144,7 @@
         interface:  "{{ item }}"
         state: query
         validate_certs: no
+        use_ssl: no
         timeout: 300
       delegate_to: localhost
       register: query_result
