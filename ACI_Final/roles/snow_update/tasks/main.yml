@@ -1,39 +1,35 @@
 ---
 # tasks file for snow_update
-- hosts: localhost
-  connection: local
-  gather_facts: no
-  tasks:
-    - name: Get specific Static Path binding for given EPG
-      aci_static_binding_to_epg:
-        host:  "{{ host }}"
-        username: "{{ username }}"
-        password:  "{{ password }}"
-        tenant:  "{{ tenant }}"
-        ap: "{{ ap }}"
-        epg:  "{{ epg }}"
-        interface_type:  "{{ interface_type }}"
-        pod_id:  "{{ pod_id }}"
-        leafs:  "{{ leafs }}"
-        interface:  "{{ item }}"
-        state: query
-        use_ssl: no
-        validate_certs: no
-        timeout: 300
-      delegate_to: localhost
-      register: query_result
-      with_items: "{{interface}}"
+- name: Get specific Static Path binding for given EPG
+  aci_static_binding_to_epg:
+    host:  "{{ host }}"
+    username: "{{ username }}"
+    password:  "{{ password }}"
+    tenant:  "{{ tenant }}"
+    ap: "{{ ap }}"
+    epg:  "{{ epg }}"
+    interface_type:  "{{ interface_type }}"
+    pod_id:  "{{ pod_id }}"
+    leafs:  "{{ leafs }}"
+    interface:  "{{ item }}"
+    state: query
+    use_ssl: no
+    validate_certs: no
+    timeout: 300
+  delegate_to: localhost
+  register: query_result
+  with_items: "{{interface}}"
 
-    - name: SNOW Update
-      snow_record:
-        username: "{{snow_username}}"
-        password: "{{snow_password}}"
-        instance: "{{snow_instance}}"
-        state: present
-        table: change_request
-        number: "{{change_number}}"
-        data:
-          work_notes: "{{query_result}}"
-          state: 3
-          close_code: Successful
-          close_notes: "Automation Closed Change"
+- name: SNOW Update
+  snow_record:
+    username: "{{snow_username}}"
+    password: "{{snow_password}}"
+    instance: "{{snow_instance}}"
+    state: present
+    table: change_request
+    number: "{{change_number}}"
+    data:
+      work_notes: "{{query_result}}"
+      state: 3
+      close_code: Successful
+      close_notes: "Automation Closed Change"

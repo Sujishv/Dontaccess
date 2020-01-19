@@ -1,0 +1,11 @@
+---
+#ACI VLAN TAGGING
+- name: Usecases for ACI VLAN taging
+  hosts: localhost
+  connection: local
+  gather_facts: False
+
+  roles:
+    - { role: f5_Device_Info_collect, }
+    - { role: f5_Volume_Utlilization, }
+    - { role: f5_Snow_Update, }
