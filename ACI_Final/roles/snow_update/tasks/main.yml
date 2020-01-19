@@ -20,7 +20,7 @@
   register: query_result
   with_items: "{{interface}}"
 
-- name: SNOW Update
+- name: SNOW work log Update
   snow_record:
     username: "{{snow_username}}"
     password: "{{snow_password}}"
@@ -29,11 +29,22 @@
     table: change_request
     number: "{{change_number}}"
     data:
-      work_notes: "{{query_result}}"
+      work_notes: "Current status of Interface : \n\n Interface = {{ item.current[0].fvRsPathAtt.attributes.dn}} \n VLAN Number(s) = {{ \n\n item.current[0].fvRsPathAtt.attributes.encap }} \n\n "
+  with_items: "{{ query_result.results}}"
+
+- name: SNOW ticket status changing
+  snow_record:
+    username: "{{snow_username}}"
+    password: "{{snow_password}}"
+    instance: "{{snow_instance}}"
+    state: present
+    table: change_request
+    number: "{{change_number}}"
+    data:     
       state: "{{item}}"
       close_code: Successful
       close_notes: "Automation Closed Change"
   with_items:
-     - 0
-     - 3
+      - 0
+      - 3
 
