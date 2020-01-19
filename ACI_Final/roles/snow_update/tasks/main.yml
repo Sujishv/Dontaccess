@@ -29,7 +29,11 @@
     table: change_request
     number: "{{change_number}}"
     data:
-      work_notes: "Closing"
-      state: 3
+      work_notes: "{{query_result}}"
+      state: "{{item}}"
       close_code: Successful
       close_notes: "Automation Closed Change"
+  with_items:
+     - 0
+     - 3
+
