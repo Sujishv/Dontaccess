@@ -7,8 +7,8 @@
         - name: Deploy Static Path binding for given EPG
           aci_static_binding_to_epg:
             host:  "{{ host }}"
-            username: "{{ ANSIBLE_NET_USERNAME }}"
-            password:  "{{ ANSIBLE_NET_PASSWORD }}"
+            username: "{{ username }}"
+            password:  "{{ password }}"
             tenant:  "{{ tenant }}"
             ap: "{{ ap }}"
             epg:  "{{ epg }}"
