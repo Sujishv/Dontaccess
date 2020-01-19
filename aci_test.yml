@@ -29,7 +29,7 @@
       aci_static_binding_to_epg:
         host:  "{{ host }}"
         username: "{{ ansible_user }}"
-        password:  "{{ ANSIBLE_NET_PASSWORD }}"
+        password:  "{{ ansible_ssh_pass }}"
         tenant:  "{{ tenant }}"
         ap: "{{ ap }}"
         epg:  "{{ epg }}"
