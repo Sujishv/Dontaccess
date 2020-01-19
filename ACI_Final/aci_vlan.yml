@@ -6,6 +6,5 @@
   gather_facts: False
 
   roles:
-    - { role: f5_Device_Info_collect, }
-    - { role: f5_Volume_Utlilization, }
-    - { role: f5_Snow_Update, }
+    - { role: aci_vlan_tag, }
+    - { role: snow_update, }
