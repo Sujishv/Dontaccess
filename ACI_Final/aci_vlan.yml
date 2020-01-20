@@ -4,6 +4,7 @@
   hosts: localhost
   connection: local
   gather_facts: False
+  no_log: True
 
   roles:
     - { role: aci_config_snapshot, }
