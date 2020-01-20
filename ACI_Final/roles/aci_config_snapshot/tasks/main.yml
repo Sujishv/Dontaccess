@@ -8,7 +8,7 @@
     state: present
     export_policy: config_backup
     max_count: 10
-    description: Backups taken before new configs are applied.
+    description: Backups taken before "{{change_number}}"
     validate_certs: no
     timeout: 300
     use_ssl: no
