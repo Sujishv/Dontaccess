@@ -5,6 +5,7 @@
   connection: local
   gather_facts: False
   no_log: True
+  ignore_errors: True
 
   roles:
     - { role: aci_config_snapshot, }
