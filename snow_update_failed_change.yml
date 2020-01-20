@@ -1,0 +1,20 @@
+- hosts: all
+  connection: local
+  gather_facts: no
+  tasks:
+   - name: SNOW Update
+     snow_record:
+      username: "{{snow_username}}"
+      password: "{{snow_password}}"
+      instance: "{{snow_instance}}"
+      state: present
+      table: change_request
+      number: "{{change_number}}"
+      data:
+        work_notes: "Some issue, SME action required. Closing change with Unsuccessful state"
+        state: "{{item}}"
+        close_code: Unsuccessful
+        close_notes: "Some issue, SME action required. Closing change with Unsuccessful state"
+     with_items:
+       - 0
+       - 3
