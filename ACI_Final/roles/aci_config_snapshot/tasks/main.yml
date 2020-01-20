@@ -1,0 +1,14 @@
+---
+# tasks file for aci_config_snapshot
+- name: Create a Snapshot
+  aci_config_snapshot:
+    hostname: "{{ host }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    state: present
+    export_policy: config_backup
+    max_count: 10
+    description: Backups taken before new configs are applied.
+    validate_certs: no
+    timeout: 300
+    use_ssl: no
