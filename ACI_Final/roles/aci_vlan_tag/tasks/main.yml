@@ -33,7 +33,7 @@
         password: "{{ password }}"
         tenant: "{{tenant}}"
         bd: "{{bd}}"
-        description:  "Automation created - {{change_num}} "
+        description:  "Automation created - {{change_number}} "
         vrf: "{{vrf}}"
         state: present
         validate_certs: no
@@ -49,7 +49,7 @@
         tenant: "{{tenant}}"
         ap: "{{ap}}"
         epg: "{{epg}}"
-        description: "Automation created - {{change_num}} "
+        description: "Automation created - {{change_number}} "
         bd: "{{bd}}"
         preferred_group: yes
         state: present
@@ -81,7 +81,7 @@
         password: "{{ password }}"
         pool: "{{ pool }}"
         pool_allocation_mode: "{{ pool_allocation_mode }}"
-        description:  "Automation created for {{pool}} - {{change_num}} "
+        description:  "Automation created for {{pool}} - {{change_number}} "
         state: present
         use_ssl: no
         validate_certs: no
