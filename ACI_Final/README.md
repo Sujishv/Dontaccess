@@ -91,6 +91,6 @@ TASK [snow_update : SNOW ticket status changing] *******************************
 changed: [localhost] => (item=0)
 changed: [localhost] => (item=3)
 PLAY RECAP *********************************************************************
-localhost                  : ok=9    changed=10    unreachable=0    failed=1    skipped=1    rescued=1    ignored=0   
+localhost                  : ok=9    changed=10    unreachable=0    failed=0    skipped=1    rescued=1    ignored=0   
 ```
 
